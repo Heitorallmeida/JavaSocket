@@ -1,3 +1,5 @@
+package server_config;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
@@ -24,10 +26,20 @@ public class ClienteThread implements Runnable {
 			outToClient = new DataOutputStream(
 					connectionSocket.getOutputStream());
 
-			clientSentence = inFromClient.readLine();
-			capitalizedSentence = clientSentence.toUpperCase() + '\n';
+			System.out.println(inFromClient);
 
-			outToClient.writeBytes(capitalizedSentence);
+			String inputLine;
+
+			while ((inputLine = inFromClient.readLine()) != null) {
+				System.out.println("InputLine que chegou no Thread"+inputLine);
+
+				clientSentence = inFromClient.readLine();
+				capitalizedSentence = clientSentence.toUpperCase() + '\n';
+
+				System.out.println("Setença em maiusclo na thread"+capitalizedSentence);
+
+				outToClient.writeBytes(capitalizedSentence);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
