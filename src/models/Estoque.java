@@ -2,10 +2,10 @@ package models;
 
 import java.util.HashMap;
 
-public class Catalogo {
+public class Estoque {
     HashMap<Produto, Integer> produtos;
 
-    public Catalogo(HashMap<Produto, Integer> produtos) {
+    public Estoque(HashMap<Produto, Integer> produtos) {
         this.produtos = produtos;
     }
 

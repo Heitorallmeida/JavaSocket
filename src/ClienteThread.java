@@ -1,36 +1,52 @@
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
+import Protocolo.Protocolo;
+import models.Estoque;
+
+import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClienteThread implements Runnable {
 
 	private Socket connectionSocket;
 
-	public ClienteThread(Socket s) {
+	private Estoque estoque;
+
+	public ClienteThread(Socket s, Estoque e) {
 		this.connectionSocket = s;
+		this.estoque = e;
 	}
 
 	public void run() {
 		String clientSentence;
-		String capitalizedSentence;
+		ArrayList<String> mensagemDoProtocolo;
 
 		BufferedReader inFromClient;
-		DataOutputStream outToClient;
+		ObjectOutputStream outToClient;
+
+		Protocolo protocolo = new Protocolo();
+		protocolo.criaBancoDeMensagem();
+
 		try {
 			inFromClient = new BufferedReader(new InputStreamReader(
 					connectionSocket.getInputStream()));
 
-			outToClient = new DataOutputStream(
-					connectionSocket.getOutputStream());
+			outToClient = new ObjectOutputStream(connectionSocket.getOutputStream());
 
 			clientSentence = inFromClient.readLine();
-			capitalizedSentence = clientSentence.toUpperCase() + '\n';
 
-			outToClient.writeBytes(capitalizedSentence);
+			mensagemDoProtocolo = protocolo.processaMensagem(clientSentence);
+
+			try {
+				outToClient.writeObject(mensagemDoProtocolo);
+			}catch (IOException e){
+				e.printStackTrace();
+			}
+			//outToClient.writeBytes(mensagemFinal);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	//TODO: criar enum representando o status do cliente
 
 }
