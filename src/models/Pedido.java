@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class Pedido {
     //HashMap<Produto, Integer> produtos; não seria melhor uma lista de produtos pra compor o pedido?
     private ArrayList<Produto> produtos;
-    private Double preco;
+    private Double preco = 0.0;
     private Date data;
 
     public void add_produto(Produto produto){
