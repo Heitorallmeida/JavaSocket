@@ -23,7 +23,7 @@ public class Pedido {
 
     public void remove_produto(Produto produto){
         for(int i = 0; i < this.produtos.size(); i++){
-            if(this.produtos.get(i).getNome().equals(produto.getNome()){
+            if(this.produtos.get(i).getNome().equals(produto.getNome())){
                 this.preco = this.preco - produto.getPreco();
                 this.produtos.remove(i);
             }
