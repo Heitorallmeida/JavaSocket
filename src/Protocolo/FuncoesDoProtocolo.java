@@ -1,25 +1,47 @@
 package Protocolo;
 
+import Utils.StatusCliente;
+import models.Estoque;
+
 import java.util.ArrayList;
 
 public class FuncoesDoProtocolo {
 
-    public static ArrayList<String> respondeOla(String faseDoCLiente) {
+    String statusCliente;
+
+    public ArrayList<String> respondeOla(String faseDoCLiente) {
         ArrayList<String> response =  new ArrayList<String>();
         response.add("Ola, bem vindo a loja de materiais de construcoes, " +
                 "IC Ink. Se deseja ver o catalogo digite 'Catalogo'");
+        response.add("Se deseja ver o statuos de Algum pedido, digite 'status'");
         return response;
     }
 
-    public static ArrayList<String> respondeCatalogo(String faseDoCLiente) {
+    public ArrayList<String> respondeCatalogo(Estoque estoque) {
         ArrayList<String> response =  new ArrayList<String>();
 
-        if(faseDoCLiente == null || faseDoCLiente == "inicial"){
-            response.add("Cimento -- 25 R$ / saco");
-            response.add("Areia -- 30 R$ / metro");
+        if(statusCliente == StatusCliente.INICIAL.getValor()){
+           response = estoque.retornaCatalogo();
+        }
+
+        return response;
+    }
+
+    public ArrayList<String> respondeItem(Estoque catalogo) {
+        ArrayList<String> response =  new ArrayList<String>();
+
+        return response;
+    }
+
+
+    public ArrayList<String> processa(String funcao, Estoque catalogo) {
+        ArrayList<String> response =  new ArrayList<String>();
+        System.out.println(funcao);
+        if(funcao == "respondeOla"){
+            return this.respondeOla(funcao);
+        } else if(funcao == "respondeCatalogo"){
+            return this.respondeCatalogo(catalogo);
         }
         return response;
     }
-
-
 }

@@ -1,4 +1,5 @@
 import Protocolo.Protocolo;
+import Utils.StatusCliente;
 import models.Estoque;
 
 import java.io.*;
@@ -27,6 +28,10 @@ public class ClienteThread implements Runnable {
 		Protocolo protocolo = new Protocolo();
 		protocolo.criaBancoDeMensagem();
 
+		String statusCliente = StatusCliente.INICIAL.getValor();
+
+
+
 		try {
 			inFromClient = new BufferedReader(new InputStreamReader(
 					connectionSocket.getInputStream()));
@@ -35,7 +40,7 @@ public class ClienteThread implements Runnable {
 
 			clientSentence = inFromClient.readLine();
 
-			mensagemDoProtocolo = protocolo.processaMensagem(clientSentence);
+			mensagemDoProtocolo = protocolo.processaMensagem(clientSentence,statusCliente, estoque);
 
 			try {
 				outToClient.writeObject(mensagemDoProtocolo);
