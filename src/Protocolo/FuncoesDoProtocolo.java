@@ -20,10 +20,10 @@ public class FuncoesDoProtocolo {
     public ArrayList<String> respondeCatalogo(Estoque estoque) {
         ArrayList<String> response =  new ArrayList<String>();
 
-        if(statusCliente == StatusCliente.INICIAL.getValor()){
-           response = estoque.retornaCatalogo();
-        }
 
+        response = estoque.retornaCatalogo();
+
+        response.add("Digite o nome do item que deseja comprar");
         return response;
     }
 
