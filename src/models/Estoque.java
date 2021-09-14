@@ -26,7 +26,6 @@ public class Estoque {
         Iterator<Produto> produtosIterator = produtos.keySet().iterator();
         while(produtosIterator.hasNext()) {
             Produto produto = produtosIterator.next();
-            System.out.println(produto.getNome());
             String item = produto.getNome() + "-----" +produto.getPreco();
             catalogo.add(item);
         }
@@ -34,4 +33,14 @@ public class Estoque {
         return catalogo;
     }
 
+    public Produto buscaProduto(String mensagem) {
+        Iterator<Produto> produtosIterator = produtos.keySet().iterator();
+        while(produtosIterator.hasNext()) {
+            Produto produto = produtosIterator.next();
+            if(mensagem.contains(produto.getNome())){
+                return produto;
+            }
+        }
+        return null;
+    }
 }

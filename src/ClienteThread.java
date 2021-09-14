@@ -1,11 +1,14 @@
 import Protocolo.Protocolo;
 import Utils.StatusCliente;
 import models.Estoque;
+import models.Status;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
 
 public class ClienteThread implements Runnable {
 
@@ -13,9 +16,17 @@ public class ClienteThread implements Runnable {
 
 	private Estoque estoque;
 
-	public ClienteThread(Socket s, Estoque e) {
-		this.connectionSocket = s;
-		this.estoque = e;
+	private Status statusCliente;
+
+	HashMap<List<String>, String> protocolos;
+
+
+	public ClienteThread(Socket socket, Estoque estoque, Status status, HashMap<List<String>, String> protocolos) {
+
+		this.connectionSocket = socket;
+		this.estoque = estoque;
+		this.statusCliente = status;
+		this.protocolos = protocolos;
 	}
 
 	public void run() {
@@ -26,11 +37,6 @@ public class ClienteThread implements Runnable {
 		ObjectOutputStream outToClient;
 
 		Protocolo protocolo = new Protocolo();
-		protocolo.criaBancoDeMensagem();
-
-		String statusCliente = StatusCliente.INICIAL.getValor();
-
-
 
 		try {
 			inFromClient = new BufferedReader(new InputStreamReader(
@@ -40,7 +46,8 @@ public class ClienteThread implements Runnable {
 
 			clientSentence = inFromClient.readLine();
 
-			mensagemDoProtocolo = protocolo.processaMensagem(clientSentence,statusCliente, estoque);
+			mensagemDoProtocolo = protocolo.
+					processaMensagem(clientSentence,statusCliente, estoque, protocolos);
 
 			try {
 				outToClient.writeObject(mensagemDoProtocolo);

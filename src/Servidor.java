@@ -1,5 +1,8 @@
+import Utils.BancoDeMensagens;
+import Utils.StatusCliente;
 import models.Estoque;
 import models.Produto;
+import models.Status;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -27,10 +30,12 @@ class Servidor {
 		Estoque estoque = new Estoque(produtos);
 
 		try(ServerSocket serverSocket = new ServerSocket(5566);) {
-			while (true) {
+			Status statusCliente = new Status(StatusCliente.INICIAL.getValor());
+			HashMap<List<String>, String> protocolos = BancoDeMensagens.criaBancoDeMensagem();
 
+			while (true) {
 				Socket connectionSocket = serverSocket.accept();
-				Thread t = new Thread(new ClienteThread(connectionSocket, estoque));
+				Thread t = new Thread(new ClienteThread(connectionSocket, estoque,statusCliente, protocolos));
 				t.start();
 			}
 		}

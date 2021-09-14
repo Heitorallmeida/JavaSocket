@@ -19,8 +19,8 @@ class Cliente {
 		System.out.println("-----------------------------------------------------------");
 
 		while(!sentence.equals("sair")) {
-
 			Socket clientSocket = new Socket("localhost", 5566);
+
 			ArrayList<String> titleList;
 
 			BufferedReader entradaDeTextoDousuario = new BufferedReader(new InputStreamReader(System.in)); //entrada cliente(1)

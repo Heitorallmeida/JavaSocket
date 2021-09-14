@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class Pedido {
-    //HashMap<Produto, Integer> produtos; não seria melhor uma lista de produtos pra compor o pedido?
     private ArrayList<Produto> produtos;
     private Double preco = 0.0;
     private Date data;
