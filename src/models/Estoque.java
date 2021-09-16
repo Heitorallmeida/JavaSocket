@@ -33,6 +33,10 @@ public class Estoque {
         return catalogo;
     }
 
+    public void atualizar_estoque(Produto produto, int qntd){
+        this.produtos.replace(produto, this.produtos.get(produto) - qntd);
+    }
+
     public Produto buscaProduto(String mensagem) {
         Iterator<Produto> produtosIterator = produtos.keySet().iterator();
         while(produtosIterator.hasNext()) {

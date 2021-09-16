@@ -3,13 +3,12 @@ import Utils.StatusCliente;
 import models.Estoque;
 import models.Produto;
 import models.Status;
+import models.Pedido;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 class Servidor {
 
@@ -27,15 +26,22 @@ class Servidor {
 		produtos.put(new Produto("areia",20.00,"João","Material de contrucao"), 20);
 		produtos.put(new Produto("cimento",25.00,"João","Material de contrucao"),20);
 
+		ArrayList<Produto> produtos_pedido = new ArrayList<Produto>();
+		Date data = new Date(System.currentTimeMillis());
+
 		Estoque estoque = new Estoque(produtos);
+		Pedido pedido = new Pedido(produtos_pedido, 0.0, data);
 
 		try(ServerSocket serverSocket = new ServerSocket(5566);) {
 			Status statusCliente = new Status(StatusCliente.INICIAL.getValor());
+			System.out.println("Status inicio conexao: " + StatusCliente.INICIAL.getValor());
 			HashMap<List<String>, String> protocolos = BancoDeMensagens.criaBancoDeMensagem();
 
+			//novas conexoes nunca definem novamente o status como inicial, pois o servidor fica preso no while abaixo
+			// o status inicial é definido em novas conexões apenas na linha 34, ou seja, na execucao inicial do servidor
 			while (true) {
 				Socket connectionSocket = serverSocket.accept();
-				Thread t = new Thread(new ClienteThread(connectionSocket, estoque,statusCliente, protocolos));
+				Thread t = new Thread(new ClienteThread(connectionSocket, estoque,statusCliente, protocolos, pedido));
 				t.start();
 			}
 		}
