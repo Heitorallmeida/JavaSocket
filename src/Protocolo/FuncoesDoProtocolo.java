@@ -29,6 +29,23 @@ public class FuncoesDoProtocolo {
         return response;
     }
 
+    public ArrayList<String> respondeStatus(Pedido pedido) {
+        ArrayList<String> response =  new ArrayList<String>();
+
+        if(pedido.getProdutos().size() == 0){
+            response.add("Desculpe, ainda não foi realizado nenhum pedido.");
+        }
+        else{
+            response.add("Seu pedido inclui:");
+            for(int i = 0; i < pedido.getProdutos().size()-1; i++){
+                response.add(pedido.getProdutos().get(i).getNome());
+            }
+            response.add("Total do pedido: " + pedido.getPreço());
+            response.add("Data do pedido: " + pedido.getData());
+        }
+        return response;
+    }
+
     public ArrayList<String> respondeItem(Estoque estoque, String mensagem, Status statusCliente, Pedido pedido) {
         ArrayList<String> response =  new ArrayList<String>();
 
@@ -64,7 +81,6 @@ public class FuncoesDoProtocolo {
             response.add("Digite 'catalogo' se deseja o ver novamente e adicionar outro produto, ou 'finalizar pedido'.");
         }
         return response;
-
     }
 
 
@@ -74,6 +90,8 @@ public class FuncoesDoProtocolo {
         this.statusCliente = statusCliente.getStatusCliente();
         if(funcao == "respondeOla"){
             return this.respondeOla(funcao);
+        } else if(funcao == "respondeStatus"){
+            return this.respondeStatus(pedido);
         } else if(funcao == "respondeCatalogo"){
             return this.respondeCatalogo(estoque, statusCliente);
         } else if(funcao == "respondeItem"){

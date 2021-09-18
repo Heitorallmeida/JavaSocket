@@ -13,11 +13,17 @@ public class Protocolo {
 
     public ArrayList<String> processaMensagem(String mensagem, Status statusCliente, Estoque catalogo, HashMap<List<String>, String> protocolos, Pedido pedido){
         System.out.println(statusCliente.getStatusCliente());
-        //System.out.println("Mensagem " + mensagem);
-        if(statusCliente.getStatusCliente() == "ESCOLHENDO_PRODUTO"){
+        System.out.println("Mensagem " + mensagem);
+        if(mensagem.equals("status")){
+            return funcoes.processa("respondeStatus", statusCliente, catalogo, mensagem, pedido);
+        }
+        else if(statusCliente.getStatusCliente() == "ANALISE_STATUS"){
+            return funcoes.processa("respondeStatus", statusCliente, catalogo, mensagem, pedido);
+        }
+        else if(statusCliente.getStatusCliente() == "ESCOLHENDO_PRODUTO"){
             return funcoes.processa("respondeItem", statusCliente, catalogo, mensagem, pedido);
         }
-        if(statusCliente.getStatusCliente() == "QUANTIDADE_PRODUTO"){
+        else if(statusCliente.getStatusCliente() == "QUANTIDADE_PRODUTO"){
             return funcoes.processa("respondeQuantidade", statusCliente, catalogo, mensagem, pedido);
         }
         else{
