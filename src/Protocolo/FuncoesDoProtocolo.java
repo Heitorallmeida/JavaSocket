@@ -53,6 +53,9 @@ public class FuncoesDoProtocolo {
 
         pedido.add_produto(produto);
 
+        response.add("produto: " + produto.getNome());
+        response.add("estoque: " + estoque.getProdutos().get(produto));
+
         if(produto == null || estoque.getProdutos().get(produto) == 0){
             response.add("Desculpe não foi possivel achar o produto ou o mesmo está esgotado, se deseja sair da compra digite 'sair'");
         }
@@ -65,6 +68,8 @@ public class FuncoesDoProtocolo {
 
     public ArrayList<String> respondeQuantidade(Estoque estoque, String mensagem, Status statusCliente, Pedido pedido) {
         ArrayList<String> response =  new ArrayList<String>();
+
+        mensagem = mensagem.split("&")[0];
 
         Produto produto = pedido.busca_Ultimo_produto();
         if(estoque.getProdutos().get(produto) < Integer.parseInt(mensagem)){
