@@ -17,7 +17,7 @@ public class FuncoesDoProtocolo {
         response.add("Ola, bem vindo a loja de materiais de construcoes, " +
                 "IC Ink.");
         response.add("\n->Para ver status de um pedido digite: 'status'" +
-                     "\n->Para ver o catalogo de produtos: 'catalogo'\n");
+                     "\n->Para ver o catalogo de produtos: 'catalogo', 'menu', 'produtos'...\n");
         return response;
     }
 
@@ -37,7 +37,7 @@ public class FuncoesDoProtocolo {
 
         if(pedido == null || pedido.getProdutos().size() == 0){
             response.add("Desculpe, ainda não foi realizado nenhum pedido.");
-            response.add("Para ver o catalogo e realizar um pedido digite: 'catalogo'");
+            response.add("Para ver o catalogo e realizar um pedido digite: 'catalogo', 'menu', 'produtos'...");
         }
         else{
             response.add("\nSeu pedido inclui:");
