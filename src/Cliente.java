@@ -13,20 +13,17 @@ class Cliente {
 		System.out.println("DIGITE O IP DE CONEXÃO QUE DESEJA UTILIZAR:");
 		String ip = input.nextLine();
 
-		/*
-		Scanner input = new Scanner(System.in);
-		System.out.println("DIGITE A PORTA CORRESPONDENTE AO SERVIDOR DA APLICAÇÃO: ");
-		int portNumber = input.nextInt();
-		*/
 		System.out.println("-----------------------------------------------------------");
 		System.out.println("-----------------------------------------------------------");
 		System.out.println("VOCÊ FOI CONECTADO AO SISTEMA, POR FAVOR DIGITE OQUE DESEJA");
 		System.out.println("-----------------------------------------------------------");
 		System.out.println("-----------------------------------------------------------");
 
+		byte[] b = InetAddress.getByName(ip).getAddress();
+		
 		int meuId = -1;
 		while(!sentence.equals("sair")) {
-			Socket clientSocket = new Socket(ip, 5566);
+			Socket clientSocket = new Socket(InetAddress.getByAddress(b).getHostName(), 5566);
 
 			ArrayList<String> titleList;
 
