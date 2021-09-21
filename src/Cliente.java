@@ -28,7 +28,6 @@ class Cliente {
 			DataOutputStream saidaParaServidor = new DataOutputStream(clientSocket.getOutputStream());
 			//entrada do servidor, saida do cliente
 
-
 			ObjectInputStream entradaDoServidor = new ObjectInputStream(clientSocket.getInputStream());
 			//saida do servidor, entrada(2) cliente
 
