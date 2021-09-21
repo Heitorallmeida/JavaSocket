@@ -31,18 +31,23 @@ class Servidor {
 
 		Estoque estoque = new Estoque(produtos);
 		Pedido pedido = new Pedido(produtos_pedido, 0.0, data);
+		double indice_usuario = 0;
 
 		try(ServerSocket serverSocket = new ServerSocket(5566);) {
+			HashMap<Integer, Status> clientes = new HashMap<>();
 			Status statusCliente = new Status(StatusCliente.INICIAL.getValor());
-			System.out.println("Status inicio conexao: " + StatusCliente.INICIAL.getValor());
-			HashMap<List<String>, String> protocolos = BancoDeMensagens.criaBancoDeMensagem();
 
+
+			HashMap<List<String>, String> protocolos = BancoDeMensagens.criaBancoDeMensagem();
+			indice_usuario = indice_usuario +1;
 			//novas conexoes nunca definem novamente o status como inicial, pois o servidor fica preso no while abaixo
 			// o status inicial é definido em novas conexões apenas na linha 34, ou seja, na execucao inicial do servidor
 			while (true) {
 				Socket connectionSocket = serverSocket.accept();
-				Thread t = new Thread(new ClienteThread(connectionSocket, estoque,statusCliente, protocolos, pedido));
+
+				Thread t = new Thread(new ClienteThread(connectionSocket, estoque,statusCliente, protocolos, pedido, clientes));
 				t.start();
+				System.out.println(indice_usuario);
 			}
 		}
 		catch (IOException e) {

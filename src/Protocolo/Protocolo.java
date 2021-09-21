@@ -11,9 +11,8 @@ public class Protocolo {
 
     FuncoesDoProtocolo funcoes = new FuncoesDoProtocolo();
 
-    public ArrayList<String> processaMensagem(String mensagem, Status statusCliente, Estoque catalogo, HashMap<List<String>, String> protocolos, Pedido pedido){
-        System.out.println(statusCliente.getStatusCliente());
-        System.out.println("Mensagem " + mensagem);
+    public ArrayList<String> processaMensagem(String mensagem, Status statusCliente, Estoque catalogo, HashMap<List<String>, String> protocolos, Pedido pedido, HashMap<Integer, Status> clientes){
+
         if(mensagem.equals("status")){
             return funcoes.processa("respondeStatus", statusCliente, catalogo, mensagem, pedido);
         }

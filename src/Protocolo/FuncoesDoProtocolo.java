@@ -66,6 +66,8 @@ public class FuncoesDoProtocolo {
     public ArrayList<String> respondeQuantidade(Estoque estoque, String mensagem, Status statusCliente, Pedido pedido) {
         ArrayList<String> response =  new ArrayList<String>();
 
+        mensagem = mensagem.split("&")[0];
+
         Produto produto = pedido.busca_Ultimo_produto();
         if(estoque.getProdutos().get(produto) < Integer.parseInt(mensagem)){
             response.add("Desculpa, temos apenas " + estoque.getProdutos().get(produto) + " disponivel em estoque.\nTente um novo valor.");
