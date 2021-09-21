@@ -15,8 +15,9 @@ public class FuncoesDoProtocolo {
     public ArrayList<String> respondeOla(String faseDoCLiente) {
         ArrayList<String> response =  new ArrayList<String>();
         response.add("Ola, bem vindo a loja de materiais de construcoes, " +
-                "IC Ink. Se deseja ver o catalogo digite 'Catalogo'");
-        response.add("Se deseja ver o statuos de Algum pedido, digite 'status'");
+                "IC Ink.");
+        response.add("\n->Para ver status de um pedido digite: 'status'" +
+                     "\n->Para ver o catalogo de produtos: 'catalogo'\n");
         return response;
     }
 
@@ -29,13 +30,14 @@ public class FuncoesDoProtocolo {
         return response;
     }
 
-    public ArrayList<String> respondeStatus(HashMap<Integer, Pedido> pedidos, int userId) {
+    public ArrayList<String> respondeStatus(String mensagem, HashMap<Integer, Pedido> pedidos, int userId, Status statusCliente) {
         ArrayList<String> response =  new ArrayList<String>();
 
         Pedido pedido = pedidos.get(userId);
 
-        if(pedido.getProdutos().size() == 0){
+        if(pedido == null || pedido.getProdutos().size() == 0){
             response.add("Desculpe, ainda não foi realizado nenhum pedido.");
+            response.add("Para ver o catalogo e realizar um pedido digite: 'catalogo'");
         }
         else{
             response.add("Seu pedido inclui:");
@@ -47,6 +49,14 @@ public class FuncoesDoProtocolo {
             }
             response.add("Total do pedido: " + pedido.getPreço());
             response.add("Data do pedido: " + pedido.getData());
+            response.add("---------------------------------------");
+            statusCliente.setStatusCliente("INICIAL");
+            response.add("->Digite 'catalogo' se deseja o ver novamente e adicionar outro produto\n"
+                    + "->'status' para visualizar o pedido atual\n"
+                    + "->'finalizar pedido' pata finalizar\n");
+        }
+        if(mensagem.equals("finalizar pedido")){
+            response.add("finalizar pedido");
         }
         return response;
     }
@@ -57,7 +67,7 @@ public class FuncoesDoProtocolo {
         Produto produto = estoque.buscaProduto(mensagem);
 
         if(produto == null || estoque.getProdutos().get(produto) == 0){
-            response.add("Desculpe não foi possivel achar o produto ou o mesmo está esgotado, se deseja sair da compra digite 'sair'");
+            response.add("Desculpe não foi possivel achar o produto ou o mesmo está esgotado, tente novamente");
         }
         else{
             ArrayList<Produto> produtos_pedido = new ArrayList<Produto>();
@@ -94,8 +104,10 @@ public class FuncoesDoProtocolo {
             System.out.println("Total pedido $$$: " + pedido.getPreço());
             System.out.println("Data pedido: " + pedido.getData());
             response.add("Item adicionado ao carrinho");
-            statusCliente.setStatusCliente("ESCOLHENDO_PRODUTO");
-            response.add("Digite 'catalogo' se deseja o ver novamente e adicionar outro produto, ou 'finalizar pedido'.");
+            statusCliente.setStatusCliente("INICIAL");
+            response.add("->Digite 'catalogo' se deseja o ver novamente e adicionar outro produto\n"
+                        + "->'status' para visualizar o pedido atual\n"
+                        + "->'finalizar pedido' pata finalizar\n");
         }
         return response;
     }
@@ -109,7 +121,7 @@ public class FuncoesDoProtocolo {
         if(funcao == "respondeOla"){
             return this.respondeOla(funcao);
         } else if(funcao == "respondeStatus"){
-            return this.respondeStatus(pedidos, userId);
+            return this.respondeStatus(mensagem, pedidos, userId, statusCliente);
         } else if(funcao == "respondeCatalogo"){
             return this.respondeCatalogo(estoque, statusCliente);
         } else if(funcao == "respondeItem"){

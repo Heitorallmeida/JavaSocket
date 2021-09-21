@@ -22,7 +22,7 @@ public class Protocolo {
         if(mensagemSemId.equals("status")){
             return funcoes.processa("respondeStatus", statusCliente, catalogo, mensagemSemId, pedidos, userId);
         }
-        else if(statusCliente.getStatusCliente() == "ANALISE_STATUS"){
+        else if(statusCliente.getStatusCliente() == "ANALISE_STATUS" || mensagemSemId.equals("finalizar pedido")){
             return funcoes.processa("respondeStatus", statusCliente, catalogo, mensagemSemId, pedidos, userId);
         }
         else if(statusCliente.getStatusCliente() == "ESCOLHENDO_PRODUTO"){
@@ -43,7 +43,7 @@ public class Protocolo {
             }
         }
         ArrayList<String> response =  new ArrayList<String>();
-        response.add("Desculpe, não entendi oque você deseja, tente buscar, 'catalogo' ou 'status'");
+        response.add("");
         return response;
     }
 

@@ -23,6 +23,7 @@ class Cliente {
         System.out.println("VOCÊ FOI CONECTADO AO SISTEMA, POR FAVOR DIGITE OQUE DESEJA");
         System.out.println("-----------------------------------------------------------");
         System.out.println("-----------------------------------------------------------");
+        System.out.println("Algumas pções 'ola', 'oi', 'hello'...");
 
         byte[] b = InetAddress.getByName(ip).getAddress();
 
@@ -54,17 +55,20 @@ class Cliente {
 
                 titleList =  (ArrayList<String>) arrayDeResposta;
 
+
+                int titleSize = titleList.size();
                 if(meuId == -1){
-                    int titleSize = titleList.size();
                     meuId = Integer.parseInt(titleList.get(titleSize-1).split("&")[1]);
                 }
-
                 titleList.forEach(title-> {
                     if(!title.contains("&")){
-                        System.out.println(title);
+                        if(title.equals("finalizar pedido")){
+                            System.out.println("Pedido realizado!!!\nDigite 'sair', para a finalizar a conexão");
+                        }else{
+                            System.out.println(title);
+                        }
                     }
                 });
-
             }
             clientSocket.close();
         }
