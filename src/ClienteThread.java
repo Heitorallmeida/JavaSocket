@@ -19,19 +19,19 @@ public class ClienteThread implements Runnable {
 
 	private Status statusCliente;
 
-	private Pedido pedido;
+	private HashMap<Integer, Pedido> pedidos;
 
 	HashMap<List<String>, String> protocolos;
 
 	HashMap<Integer, Status> clientes;
 
 
-	public ClienteThread(Socket socket, Estoque estoque, Status status, HashMap<List<String>, String> protocolos, Pedido pedido, HashMap<Integer, Status> clientes) {
+	public ClienteThread(Socket socket, Estoque estoque, Status status, HashMap<List<String>, String> protocolos, HashMap<Integer, Pedido> pedidos, HashMap<Integer, Status> clientes) {
 		this.connectionSocket = socket;
 		this.estoque = estoque;
 		this.statusCliente = status;
 		this.protocolos = protocolos;
-		this.pedido = pedido;
+		this.pedidos = pedidos;
 		this.clientes = clientes;
 	}
 
@@ -63,7 +63,7 @@ public class ClienteThread implements Runnable {
 			}
 
 			mensagemDoProtocolo = protocolo.
-					processaMensagem(clientSentence,clientes.get(meuId), estoque, protocolos, pedido, clientes);
+					processaMensagem(clientSentence,clientes.get(meuId), estoque, protocolos, pedidos, clientes);
 
 			mensagemDoProtocolo.add("id&"+Integer.toString(meuId));
 

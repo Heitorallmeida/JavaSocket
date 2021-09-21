@@ -50,7 +50,11 @@ class Cliente {
 					meuId = Integer.parseInt(titleList.get(titleSize-1).split("&")[1]);
 				}
 
-				titleList.forEach(title->System.out.println(title));
+				titleList.forEach(title-> {
+					if(!title.contains("&")){
+						System.out.println(title);
+					}
+				});
 
 			}
 			clientSocket.close();

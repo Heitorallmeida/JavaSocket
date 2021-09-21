@@ -6,7 +6,7 @@ import models.Produto;
 import models.Status;
 import models.Pedido;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class FuncoesDoProtocolo {
 
@@ -29,16 +29,21 @@ public class FuncoesDoProtocolo {
         return response;
     }
 
-    public ArrayList<String> respondeStatus(Pedido pedido) {
+    public ArrayList<String> respondeStatus(HashMap<Integer, Pedido> pedidos, int userId) {
         ArrayList<String> response =  new ArrayList<String>();
+
+        Pedido pedido = pedidos.get(userId);
 
         if(pedido.getProdutos().size() == 0){
             response.add("Desculpe, ainda não foi realizado nenhum pedido.");
         }
         else{
             response.add("Seu pedido inclui:");
-            for(int i = 0; i < pedido.getProdutos().size()-1; i++){
-                response.add(pedido.getProdutos().get(i).getNome());
+            Set produtosUnicos = new HashSet(pedido.getProdutos());
+
+            for (Object setProduto : produtosUnicos){
+                Produto produto = (Produto) setProduto;
+                response.add(produto.getNome());
             }
             response.add("Total do pedido: " + pedido.getPreço());
             response.add("Data do pedido: " + pedido.getData());
@@ -46,39 +51,46 @@ public class FuncoesDoProtocolo {
         return response;
     }
 
-    public ArrayList<String> respondeItem(Estoque estoque, String mensagem, Status statusCliente, Pedido pedido) {
+    public ArrayList<String> respondeItem(Estoque estoque, String mensagem, Status statusCliente, HashMap<Integer, Pedido> pedidos, int userId) {
         ArrayList<String> response =  new ArrayList<String>();
 
         Produto produto = estoque.buscaProduto(mensagem);
-
-        pedido.add_produto(produto);
-
-        response.add("produto: " + produto.getNome());
-        response.add("estoque: " + estoque.getProdutos().get(produto));
 
         if(produto == null || estoque.getProdutos().get(produto) == 0){
             response.add("Desculpe não foi possivel achar o produto ou o mesmo está esgotado, se deseja sair da compra digite 'sair'");
         }
         else{
+            ArrayList<Produto> produtos_pedido = new ArrayList<Produto>();
+            Date data = new Date(System.currentTimeMillis());
+            if(pedidos.get(userId) == null) {
+                pedidos.put(userId, new Pedido(produtos_pedido, 0.0, data));
+                pedidos.get(userId).add_produto(produto);
+            } else {
+                pedidos.get(userId).add_produto(produto);
+            }
+
             statusCliente.setStatusCliente("QUANTIDADE_PRODUTO");
             response.add("Informe a quantidade do produto desejada");
         }
         return response;
     }
 
-    public ArrayList<String> respondeQuantidade(Estoque estoque, String mensagem, Status statusCliente, Pedido pedido) {
+    public ArrayList<String> respondeQuantidade(Estoque estoque, String mensagem, Status statusCliente, HashMap<Integer, Pedido> pedidos, int userId) {
         ArrayList<String> response =  new ArrayList<String>();
-
-        mensagem = mensagem.split("&")[0];
+        Pedido pedido = pedidos.get(userId);
 
         Produto produto = pedido.busca_Ultimo_produto();
+
         if(estoque.getProdutos().get(produto) < Integer.parseInt(mensagem)){
             response.add("Desculpa, temos apenas " + estoque.getProdutos().get(produto) + " disponivel em estoque.\nTente um novo valor.");
         }
         else{
             estoque.atualizar_estoque(produto, Integer.parseInt(mensagem));
             System.out.println("quantide em estoque " + estoque.getProdutos().get(produto)); // checagem ok
+
+
             pedido.total_pedido(produto, Integer.parseInt(mensagem));
+
             System.out.println("Total pedido $$$: " + pedido.getPreço());
             System.out.println("Data pedido: " + pedido.getData());
             response.add("Item adicionado ao carrinho");
@@ -89,20 +101,21 @@ public class FuncoesDoProtocolo {
     }
 
 
-    public ArrayList<String> processa(String funcao, Status statusCliente, Estoque estoque, String mensagem, Pedido pedido) {
+    public ArrayList<String> processa(String funcao, Status statusCliente, Estoque estoque, String mensagem, HashMap<Integer, Pedido> pedidos, int userId) {
         ArrayList<String> response =  new ArrayList<String>();
+
         System.out.println("Status Cliente em processa:" + statusCliente.getStatusCliente());
         this.statusCliente = statusCliente.getStatusCliente();
         if(funcao == "respondeOla"){
             return this.respondeOla(funcao);
         } else if(funcao == "respondeStatus"){
-            return this.respondeStatus(pedido);
+            return this.respondeStatus(pedidos, userId);
         } else if(funcao == "respondeCatalogo"){
             return this.respondeCatalogo(estoque, statusCliente);
         } else if(funcao == "respondeItem"){
-            return this.respondeItem(estoque,mensagem,statusCliente, pedido);
+            return this.respondeItem(estoque,mensagem,statusCliente, pedidos, userId);
         } else if(funcao == "respondeQuantidade"){
-            return this.respondeQuantidade(estoque,mensagem,statusCliente, pedido);
+            return this.respondeQuantidade(estoque,mensagem,statusCliente, pedidos, userId);
         }
 
 

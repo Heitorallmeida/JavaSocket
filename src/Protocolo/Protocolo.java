@@ -5,25 +5,31 @@ import models.Status;
 import models.Pedido;
 
 import java.util.*;
-import java.util.function.Function;
 
 public class Protocolo {
 
     FuncoesDoProtocolo funcoes = new FuncoesDoProtocolo();
 
-    public ArrayList<String> processaMensagem(String mensagem, Status statusCliente, Estoque catalogo, HashMap<List<String>, String> protocolos, Pedido pedido, HashMap<Integer, Status> clientes){
+    public ArrayList<String> processaMensagem(String mensagem, Status statusCliente, Estoque catalogo, HashMap<List<String>, String> protocolos, HashMap<Integer, Pedido> pedidos, HashMap<Integer, Status> clientes){
+        String mensagemSemId = mensagem;
 
-        if(mensagem.equals("status")){
-            return funcoes.processa("respondeStatus", statusCliente, catalogo, mensagem, pedido);
+        int userId = -1;
+
+        if (mensagem!= null && mensagem.contains("&")) {
+            mensagemSemId = mensagem.split("&")[0];
+            userId =  Integer.parseInt(mensagem.split("&")[1]);
+        }
+        if(mensagemSemId.equals("status")){
+            return funcoes.processa("respondeStatus", statusCliente, catalogo, mensagemSemId, pedidos, userId);
         }
         else if(statusCliente.getStatusCliente() == "ANALISE_STATUS"){
-            return funcoes.processa("respondeStatus", statusCliente, catalogo, mensagem, pedido);
+            return funcoes.processa("respondeStatus", statusCliente, catalogo, mensagemSemId, pedidos, userId);
         }
         else if(statusCliente.getStatusCliente() == "ESCOLHENDO_PRODUTO"){
-            return funcoes.processa("respondeItem", statusCliente, catalogo, mensagem, pedido);
+            return funcoes.processa("respondeItem", statusCliente, catalogo, mensagemSemId, pedidos, userId);
         }
         else if(statusCliente.getStatusCliente() == "QUANTIDADE_PRODUTO"){
-            return funcoes.processa("respondeQuantidade", statusCliente, catalogo, mensagem, pedido);
+            return funcoes.processa("respondeQuantidade", statusCliente, catalogo, mensagemSemId, pedidos, userId);
         }
         else{
             Iterator<List<String>> protocolosIterator = protocolos.keySet().iterator();
@@ -31,7 +37,7 @@ public class Protocolo {
                 List<String> protocoloKey = protocolosIterator.next();
                 for (String key : protocoloKey) {
                     if (mensagem.contains(key)) {
-                        return funcoes.processa(protocolos.get(protocoloKey), statusCliente, catalogo, null, pedido);
+                        return funcoes.processa(protocolos.get(protocoloKey), statusCliente, catalogo, null, pedidos, userId);
                     }
                 }
             }
