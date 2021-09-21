@@ -7,6 +7,12 @@ class Cliente {
 
 	public static void main(String argv[]) throws Exception {
 		String sentence = "";
+
+		Scanner input = new Scanner(System.in);
+
+		System.out.println("DIGITE O IP DE CONEXÃO QUE DESEJA UTILIZAR:");
+		String ip = input.nextLine();
+
 		/*
 		Scanner input = new Scanner(System.in);
 		System.out.println("DIGITE A PORTA CORRESPONDENTE AO SERVIDOR DA APLICAÇÃO: ");
@@ -20,7 +26,7 @@ class Cliente {
 
 		int meuId = -1;
 		while(!sentence.equals("sair")) {
-			Socket clientSocket = new Socket("localhost", 5566);
+			Socket clientSocket = new Socket(ip, 5566);
 
 			ArrayList<String> titleList;
 

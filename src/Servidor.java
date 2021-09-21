@@ -18,8 +18,7 @@ class Servidor {
 		System.out.println("DIGITE A PORTA DE CONEXÃO QUE DESEJA UTILIZAR:");
 		int portNumber = input.nextInt();
 
-		System.out.println("DIGITE O IP DE CONEXÃO QUE DESEJA UTILIZAR:");
-		Scanner ip = new Scanner(System.in);
+
 		//System.out.println("SERVIDOR INICIOU, ESPERANDO CONEXÃO NA PORTA " + portNumber + "!");
 
 
