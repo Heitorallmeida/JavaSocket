@@ -63,6 +63,7 @@ class Cliente {
                 titleList.forEach(title-> {
                     if(!title.contains("&")){
                         if(title.equals("finalizar pedido")){
+                            System.out.println(title);
                             System.out.println("Pedido realizado!!!\nDigite 'sair', para a finalizar a conexão");
                         }else{
                             System.out.println(title);

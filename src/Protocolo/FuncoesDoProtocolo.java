@@ -40,18 +40,18 @@ public class FuncoesDoProtocolo {
             response.add("Para ver o catalogo e realizar um pedido digite: 'catalogo'");
         }
         else{
-            response.add("Seu pedido inclui:");
+            response.add("\nSeu pedido inclui:");
             Set produtosUnicos = new HashSet(pedido.getProdutos());
 
             for (Object setProduto : produtosUnicos){
                 Produto produto = (Produto) setProduto;
-                response.add(produto.getNome());
+                response.add("-" + produto.getNome());
             }
-            response.add("Total do pedido: " + pedido.getPreço());
+            response.add("Total do pedido: R$" + pedido.getPreço());
             response.add("Data do pedido: " + pedido.getData());
             response.add("---------------------------------------");
             statusCliente.setStatusCliente("INICIAL");
-            response.add("->Digite 'catalogo' se deseja o ver novamente e adicionar outro produto\n"
+            response.add("\n->Digite 'catalogo' se deseja o ver novamente e adicionar outro produto\n"
                     + "->'status' para visualizar o pedido atual\n"
                     + "->'finalizar pedido' pata finalizar\n");
         }
@@ -105,7 +105,7 @@ public class FuncoesDoProtocolo {
             System.out.println("Data pedido: " + pedido.getData());
             response.add("Item adicionado ao carrinho");
             statusCliente.setStatusCliente("INICIAL");
-            response.add("->Digite 'catalogo' se deseja o ver novamente e adicionar outro produto\n"
+            response.add("\n->Digite 'catalogo' se deseja o ver novamente e adicionar outro produto\n"
                         + "->'status' para visualizar o pedido atual\n"
                         + "->'finalizar pedido' pata finalizar\n");
         }
