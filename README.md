@@ -31,12 +31,12 @@ A execução pode ser feita em uma IDE ou diretamente no terminal, basta conter 
  * Terminal
      * Servidor 
       ```
-      java Servidor.jar -jar
+      java Servidor.java -jar
       ``` 
       Insira a porta de conexão que deseja ultilizar.
      * Cliente
      ```
-     java Servidor.jar -jar
+     java Servidor.java -jar
      ``` 
      Insira o IP do servidor que deseja conectar-se, logo após será solicitada a porta a qual deseja conectar, insira a mesma do servidor.
      
