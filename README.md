@@ -29,7 +29,7 @@ A execução pode ser feita em uma IDE ou diretamente no terminal, basta conter 
  
 ## Execução
  * Terminal
-     * Servidor 
+     * Servidor (Primeiro comando para compilar, segundo para executar, siga a ordem)
       ```
       javac Servidor.java
       ``` 
@@ -37,7 +37,7 @@ A execução pode ser feita em uma IDE ou diretamente no terminal, basta conter 
       java Servidor
       ``` 
       Insira a porta de conexão que deseja ultilizar.
-     * Cliente
+     * Cliente (Primeiro comando para compilar, segundo para executar, siga a ordem)
       ```
       javac Cliente.java
       ``` 
