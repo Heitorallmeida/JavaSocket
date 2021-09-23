@@ -15,7 +15,7 @@ class Servidor {
 	public static void main(String argv[]) throws Exception {
 
 		Scanner input = new Scanner(System.in);
-		System.out.println("DIGITE A PORTA DE CONEXÃO QUE DESEJA UTILIZAR:");
+		System.out.println("DIGITE A PORTA DE CONEXAO QUE DESEJA UTILIZAR:");
 		int portNumber = input.nextInt();
 
 

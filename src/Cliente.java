@@ -10,9 +10,9 @@ class Cliente {
 
         Scanner input = new Scanner(System.in);
 
-        System.out.println("DIGITE O IP DE CONEXÃO QUE DESEJA UTILIZAR:");
+        System.out.println("DIGITE O IP DE CONEXAO QUE DESEJA UTILIZAR OU 'LOCALHOST': ");
         String ip = input.nextLine();
-        System.out.println("DIGITE O PORTA DE CONEXÃO QUE DESEJA UTILIZAR:");
+        System.out.println("DIGITE O PORTA DE CONEXAO QUE DESEJA UTILIZAR:");
         int porta = input.nextInt();
 
 		/*
@@ -22,10 +22,10 @@ class Cliente {
 		*/
         System.out.println("-----------------------------------------------------------");
         System.out.println("-----------------------------------------------------------");
-        System.out.println("VOCÊ FOI CONECTADO AO SISTEMA, POR FAVOR DIGITE OQUE DESEJA");
+        System.out.println("VOCE FOI CONECTADO AO SISTEMA, POR FAVOR DIGITE OQUE DESEJA");
         System.out.println("-----------------------------------------------------------");
         System.out.println("-----------------------------------------------------------");
-        System.out.println("Algumas pções 'ola', 'oi', 'hello'...");
+        System.out.println("Algumas Opcoes 'ola', 'oi', 'hello'...");
 
 
         int meuId = -1;
@@ -64,7 +64,7 @@ class Cliente {
                     if(!title.contains("&")){
                         if(title.equals("finalizar pedido")){
                             System.out.println(title);
-                            System.out.println("Pedido realizado!!!\nDigite 'sair', para a finalizar a conexão");
+                            System.out.println("Pedido realizado!!!\nDigite 'sair', para a finalizar a conexao");
                         }else{
                             System.out.println(title);
                         }
