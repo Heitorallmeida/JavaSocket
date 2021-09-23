@@ -25,12 +25,12 @@ class Cliente {
         System.out.println("-----------------------------------------------------------");
         System.out.println("Algumas pções 'ola', 'oi', 'hello'...");
 
-        byte[] b = InetAddress.getByName(ip).getAddress();
+
 
 
         int meuId = -1;
         while(!sentence.equals("sair")) {
-            Socket clientSocket = new Socket(InetAddress.getByAddress(b).getHostName(), 5566);
+            Socket clientSocket = new Socket(ip, 5566);
 
             ArrayList<String> titleList;
 
