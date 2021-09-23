@@ -1,5 +1,5 @@
 # Projeto Redes de Computadores - Implementação Sockets
-## Utilizando Sockets com java em aplicação de *Loja de construição*
+## Utilizando Sockets com java em aplicação de *Loja de construção*
 
 ![image](https://user-images.githubusercontent.com/38872475/134444781-61b0a0bb-0f49-4f9f-9500-8fd991b1e606.png)
 
