@@ -49,8 +49,6 @@ class Servidor {
 
 
 			HashMap<List<String>, String> protocolos = BancoDeMensagens.criaBancoDeMensagem();
-			//novas conexoes nunca definem novamente o status como inicial, pois o servidor fica preso no while abaixo
-			// o status inicial é definido em novas conexões apenas na linha 36, ou seja, na execucao inicial do servidor
 			while (true) {
 				Socket connectionSocket = serverSocket.accept();
 

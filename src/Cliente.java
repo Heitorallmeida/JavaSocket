@@ -15,11 +15,6 @@ class Cliente {
         System.out.println("DIGITE O PORTA DE CONEXAO QUE DESEJA UTILIZAR:");
         int porta = input.nextInt();
 
-		/*
-		Scanner input = new Scanner(System.in);
-		System.out.println("DIGITE A PORTA CORRESPONDENTE AO SERVIDOR DA APLICAÇÃO: ");
-		int portNumber = input.nextInt();
-		*/
         System.out.println("-----------------------------------------------------------");
         System.out.println("-----------------------------------------------------------");
         System.out.println("VOCE FOI CONECTADO AO SISTEMA, POR FAVOR DIGITE OQUE DESEJA");
