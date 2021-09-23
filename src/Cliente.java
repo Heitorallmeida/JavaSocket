@@ -12,6 +12,8 @@ class Cliente {
 
         System.out.println("DIGITE O IP DE CONEXÃO QUE DESEJA UTILIZAR:");
         String ip = input.nextLine();
+        System.out.println("DIGITE O PORTA DE CONEXÃO QUE DESEJA UTILIZAR:");
+        int porta = input.nextInt();
 
 		/*
 		Scanner input = new Scanner(System.in);
@@ -26,11 +28,9 @@ class Cliente {
         System.out.println("Algumas pções 'ola', 'oi', 'hello'...");
 
 
-
-
         int meuId = -1;
         while(!sentence.equals("sair")) {
-            Socket clientSocket = new Socket(ip, 5566);
+            Socket clientSocket = new Socket(ip, porta);
 
             ArrayList<String> titleList;
 
