@@ -25,15 +25,16 @@ Pedido {
         Double soma_produto_atual = 0.0;
         for(int i = 0; i < this.produtos.size(); i++){
             if(this.produtos.get(i) == produto && flag == 0){
-                //System.out.println("antes " + this.preco);
+                System.out.println("antes " + this.preco);
                 soma_produto_atual = produto.getPreco()*qntd;
-                //System.out.println("depois " + soma_produto_atual);
+                System.out.println("depois " + soma_produto_atual);
                 this.preco = this.preco + soma_produto_atual;
                 flag = 1;
-            }
-            if(flag == 1 && this.produtos.get(i) != produto){
+            }/*
+            else if(flag == 1 && this.produtos.get(i) != produto){
+                System.out.println("preco na flag: " + soma_produto_atual);
                 this.preco = this.preco + soma_produto_atual;
-            }
+            }*/
         }
     }
 

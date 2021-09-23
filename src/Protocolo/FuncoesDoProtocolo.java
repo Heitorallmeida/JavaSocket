@@ -67,7 +67,7 @@ public class FuncoesDoProtocolo {
         Produto produto = estoque.buscaProduto(mensagem);
 
         if(produto == null || estoque.getProdutos().get(produto) == 0){
-            response.add("Desculpe não foi possivel achar o produto ou o mesmo esta esgotado, tente novamente outro produto.");
+            response.add("Desculpe nao foi possivel achar o produto ou o mesmo esta esgotado, tente novamente outro produto.");
         }
         else{
             ArrayList<Produto> produtos_pedido = new ArrayList<Produto>();
