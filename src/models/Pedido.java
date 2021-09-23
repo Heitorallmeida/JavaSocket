@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-public class Pedido {
+public class
+Pedido {
     private ArrayList<Produto> produtos;
     private Double preco = 0.0;
     private Date data;
