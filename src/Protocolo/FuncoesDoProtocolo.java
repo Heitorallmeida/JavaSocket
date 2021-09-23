@@ -47,7 +47,7 @@ public class FuncoesDoProtocolo {
                 Produto produto = (Produto) setProduto;
                 response.add("-" + produto.getNome());
             }
-            response.add("Total do pedido: R$" + pedido.getPreço());
+            response.add("Total do pedido: R$" + pedido.getPreco());
             response.add("Data do pedido: " + pedido.getData());
             response.add("---------------------------------------");
             statusCliente.setStatusCliente("INICIAL");
@@ -101,7 +101,7 @@ public class FuncoesDoProtocolo {
 
             pedido.total_pedido(produto, Integer.parseInt(mensagem));
 
-            System.out.println("Total pedido $$$: " + pedido.getPreço());
+            System.out.println("Total pedido $$$: " + pedido.getPreco());
             System.out.println("Data pedido: " + pedido.getData());
             response.add("Item adicionado ao carrinho");
             statusCliente.setStatusCliente("INICIAL");
@@ -129,8 +129,6 @@ public class FuncoesDoProtocolo {
         } else if(funcao == "respondeQuantidade"){
             return this.respondeQuantidade(estoque,mensagem,statusCliente, pedidos, userId);
         }
-
-
         return response;
     }
 }

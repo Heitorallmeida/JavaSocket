@@ -53,12 +53,12 @@ public class Pedido {
 
     public void setProdutos(ArrayList<Produto> produtos) { this.produtos = produtos; }
 
-    public Double getPreço() {
+    public Double getPreco() {
         return preco;
     }
 
-    public void setPreço(Double preço) {
-        this.preco = preço;
+    public void setPreco(Double preco) {
+        this.preco = preco;
     }
 
     public Date getData() {
